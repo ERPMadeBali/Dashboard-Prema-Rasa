@@ -1,0 +1,4308 @@
+<!DOCTYPE html>
+<html lang="id">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="theme-color" content="#07111f">
+        <title>Sales Executive Report</title>
+        <!-- =========================================================
+         FONT
+========================================================== -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet">
+        <!-- =========================================================
+         CHART JS
+========================================================== -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- =========================================================
+         STYLE
+========================================================== -->
+        <style>
+            /* =========================================================
+           EXECUTIVE DASHBOARD — ELEGANT GREEN COLLABORATION THEME
+        ========================================================= */
+            :root {
+                /* PRIMARY GREEN */
+                --primary: #22c55e;
+                --primary-light: #4ade80;
+                --primary-dark: #15803d;
+                --primary-deep: #166534;
+
+                /* SECONDARY ACCENTS — tetap digunakan seperlunya */
+                --accent-blue: #34d399;
+                --accent-purple: #a7f3d0;
+                --accent-orange: #fbbf24;
+                --accent-red: #fb7185;
+
+                /* GREEN DOMINANT BACKGROUND */
+                --bg: #061a12;
+                --bg-2: #09251a;
+                --surface: #0b2a1e;
+                --surface-2: #103624;
+                --surface-3: #16432d;
+
+                /* TEXT */
+                --text: #f0fdf4;
+                --text-secondary: #d1fae5;
+                --muted: #8fb5a0;
+                --muted-2: #6f9580;
+
+                /* BORDER */
+                --border: rgba(74, 222, 128, .13);
+                --border-light: rgba(74, 222, 128, .20);
+
+                /* SOFT GREEN BACKGROUNDS */
+                --success-bg: rgba(34, 197, 94, .13);
+                --blue-bg: rgba(52, 211, 153, .12);
+                --orange-bg: rgba(245, 158, 11, .12);
+                --purple-bg: rgba(167, 243, 208, .12);
+
+                /* SHADOW */
+                --shadow:
+                    0 18px 50px rgba(0, 20, 12, .28);
+
+                --shadow-lg:
+                    0 25px 80px rgba(0, 20, 12, .38);
+
+                --radius: 20px;
+            }
+
+
+            /* =========================================================
+           RESET
+        ========================================================= */
+            * {
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+
+                background:
+                    radial-gradient(circle at 8% 0%,
+                        rgba(34, 197, 94, .16),
+                        transparent 30%),
+                    radial-gradient(circle at 92% 12%,
+                        rgba(16, 185, 129, .10),
+                        transparent 32%),
+                    radial-gradient(circle at 50% 100%,
+                        rgba(22, 101, 52, .18),
+                        transparent 40%),
+                    linear-gradient(135deg,
+                        #04150d 0%,
+                        #072217 45%,
+                        #061a12 100%);
+
+                color: var(--text);
+
+                font-family:
+                    "Inter",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+
+                -webkit-font-smoothing: antialiased;
+            }
+
+            button,
+            input,
+            select {
+                font-family: inherit;
+            }
+
+
+            /* =========================================================
+           LOGIN
+        ========================================================= */
+            #loginPage {
+                position: fixed;
+                inset: 0;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 20px;
+
+                background:
+                    radial-gradient(circle at 15% 15%,
+                        rgba(34, 197, 94, .22),
+                        transparent 30%),
+                    radial-gradient(circle at 85% 80%,
+                        rgba(16, 185, 129, .14),
+                        transparent 32%),
+                    radial-gradient(circle at 50% 100%,
+                        rgba(21, 128, 61, .14),
+                        transparent 38%),
+                    linear-gradient(135deg,
+                        #03140c,
+                        #062217,
+                        #041a11);
+
+                z-index: 1000;
+            }
+
+            #loginPage::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+
+                background-image:
+                    linear-gradient(rgba(134, 239, 172, .035) 1px,
+                        transparent 1px),
+                    linear-gradient(90deg,
+                        rgba(134, 239, 172, .035) 1px,
+                        transparent 1px);
+
+                background-size: 45px 45px;
+
+                mask-image:
+                    linear-gradient(to bottom,
+                        black,
+                        transparent);
+
+                pointer-events: none;
+            }
+
+            .login-container {
+                position: relative;
+                width: 100%;
+                max-width: 430px;
+            }
+
+            .login-card {
+                position: relative;
+
+                padding: 42px;
+
+                border:
+                    1px solid rgba(134, 239, 172, .16);
+
+                border-radius: 28px;
+
+                background:
+                    linear-gradient(145deg,
+                        rgba(13, 53, 36, .97),
+                        rgba(7, 38, 25, .97));
+
+                box-shadow:
+                    0 40px 100px rgba(0, 20, 10, .60),
+                    inset 0 1px 0 rgba(255, 255, 255, .035);
+
+                backdrop-filter: blur(20px);
+
+                animation:
+                    loginAnimation .65s ease;
+            }
+
+            .login-card::before {
+                content: "";
+
+                position: absolute;
+
+                top: 0;
+                left: 12%;
+                right: 12%;
+
+                height: 1px;
+
+                background:
+                    linear-gradient(90deg,
+                        transparent,
+                        rgba(74, 222, 128, .9),
+                        transparent);
+            }
+
+            @keyframes loginAnimation {
+                from {
+                    opacity: 0;
+                    transform:
+                        translateY(25px) scale(.97);
+                }
+
+                to {
+                    opacity: 1;
+                    transform:
+                        translateY(0) scale(1);
+                }
+            }
+
+            .login-logo {
+                width: 78px;
+                height: 78px;
+
+                margin: 0 auto 22px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background:
+                    linear-gradient(145deg,
+                        #14532d,
+                        #0b3521);
+
+                border:
+                    1px solid rgba(134, 239, 172, .18);
+
+                border-radius: 20px;
+
+                padding: 10px;
+
+                box-shadow:
+                    0 15px 40px rgba(0, 20, 10, .40),
+                    0 0 35px rgba(34, 197, 94, .14);
+            }
+
+            .login-logo img {
+                width: 120%;
+                height: 120%;
+                object-fit: contain;
+            }
+
+            .login-title {
+                text-align: center;
+
+                font-size: 25px;
+                font-weight: 800;
+
+                letter-spacing: -.03em;
+
+                color: #f0fdf4;
+            }
+
+            .login-subtitle {
+                margin-top: 8px;
+                margin-bottom: 30px;
+
+                text-align: center;
+
+                color: #8fb5a0;
+
+                font-size: 13px;
+            }
+
+            .login-group {
+                margin-bottom: 17px;
+            }
+
+            .login-label {
+                display: block;
+
+                margin-bottom: 8px;
+
+                color: #d1fae5;
+
+                font-size: 11px;
+                font-weight: 700;
+
+                letter-spacing: .04em;
+            }
+
+            .login-input {
+                width: 100%;
+                height: 52px;
+
+                padding: 0 15px;
+
+                border:
+                    1px solid rgba(134, 239, 172, .14);
+
+                border-radius: 13px;
+
+                outline: none;
+
+                background:
+                    rgba(2, 20, 12, .48);
+
+                color: #f0fdf4;
+
+                font-size: 13px;
+
+                transition: .2s ease;
+            }
+
+            .login-input::placeholder {
+                color: #5d806c;
+            }
+
+            .login-input:hover {
+                border-color:
+                    rgba(134, 239, 172, .25);
+            }
+
+            .login-input:focus {
+                background:
+                    rgba(3, 25, 15, .68);
+
+                border-color:
+                    rgba(74, 222, 128, .65);
+
+                box-shadow:
+                    0 0 0 4px rgba(34, 197, 94, .09);
+            }
+
+            .login-button {
+                width: 100%;
+                height: 52px;
+
+                margin-top: 5px;
+
+                border: 0;
+                border-radius: 13px;
+
+                color: #ffffff;
+
+                font-size: 14px;
+                font-weight: 700;
+
+                background:
+                    linear-gradient(135deg,
+                        #22c55e,
+                        #15803d);
+
+                cursor: pointer;
+
+                box-shadow:
+                    0 12px 30px rgba(34, 197, 94, .22);
+
+                transition:
+                    transform .2s ease,
+                    box-shadow .2s ease,
+                    filter .2s ease;
+            }
+
+            .login-button:hover {
+                transform: translateY(-2px);
+
+                filter: brightness(1.08);
+
+                box-shadow:
+                    0 16px 35px rgba(34, 197, 94, .32);
+            }
+
+            .login-button:active {
+                transform: translateY(0);
+            }
+
+            .login-button:disabled {
+                opacity: .55;
+                cursor: wait;
+                transform: none;
+            }
+
+            .login-error {
+                display: none;
+
+                padding: 11px 13px;
+                margin-bottom: 15px;
+
+                border:
+                    1px solid rgba(248, 113, 113, .15);
+
+                border-radius: 10px;
+
+                background:
+                    rgba(220, 38, 38, .10);
+
+                color: #fca5a5;
+
+                font-size: 12px;
+            }
+
+
+            /* =========================================================
+           LOADING
+        ========================================================= */
+            #loadingScreen {
+                position: fixed;
+                inset: 0;
+
+                z-index: 9999;
+
+                display: none;
+
+                align-items: center;
+                justify-content: center;
+
+                background:
+                    rgba(3, 20, 12, .95);
+
+                backdrop-filter: blur(14px);
+            }
+
+            .loading-box {
+                text-align: center;
+                color: white;
+            }
+
+            .loading-spinner {
+                width: 58px;
+                height: 58px;
+
+                border:
+                    4px solid rgba(134, 239, 172, .08);
+
+                border-top-color:
+                    var(--primary);
+
+                border-right-color:
+                    rgba(34, 197, 94, .25);
+
+                border-radius: 50%;
+
+                animation:
+                    spin .8s linear infinite;
+
+                margin: auto;
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .loading-title {
+                margin-top: 20px;
+
+                font-size: 17px;
+                font-weight: 700;
+            }
+
+            .loading-description {
+                margin-top: 7px;
+
+                color: #6f9580;
+
+                font-size: 12px;
+            }
+
+
+            /* =========================================================
+           APPLICATION
+        ========================================================= */
+            #app {
+                display: none;
+                min-height: 100vh;
+            }
+
+            .app-wrapper {
+                width: 100%;
+                min-height: 100vh;
+
+                background:
+                    radial-gradient(circle at 50% -20%,
+                        rgba(34, 197, 94, .08),
+                        transparent 38%);
+            }
+
+
+            /* =========================================================
+           HEADER
+        ========================================================= */
+            .header {
+                position: sticky;
+                top: 0;
+
+                z-index: 100;
+
+                height: 76px;
+
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                padding:
+                    0 clamp(18px, 4vw, 60px);
+
+                background:
+                    rgba(6, 30, 19, .86);
+
+                backdrop-filter: blur(18px);
+
+                border-bottom:
+                    1px solid rgba(74, 222, 128, .12);
+
+                box-shadow:
+                    0 10px 30px rgba(0, 25, 13, .20);
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .brand-logo {
+                width: 48px;
+                height: 48px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background:
+                    linear-gradient(145deg,
+                        #14532d,
+                        #0b3521);
+
+                border:
+                    1px solid rgba(134, 239, 172, .16);
+
+                border-radius: 14px;
+
+                padding: 6px;
+
+                box-shadow:
+                    0 8px 25px rgba(0, 25, 13, .30);
+            }
+
+            .brand-logo img {
+                width: 100%;
+                height: 100%;
+
+                object-fit: contain;
+                display: block;
+            }
+
+            .brand-name {
+                font-size: 14px;
+                font-weight: 800;
+
+                color: #f0fdf4;
+
+                letter-spacing: -.01em;
+            }
+
+            .brand-subtitle {
+                margin-top: 3px;
+
+                font-size: 10px;
+
+                color: #729783;
+            }
+
+
+            /* =========================================================
+           USER AREA
+        ========================================================= */
+            .user-area {
+                position: relative;
+            }
+
+            .user-button {
+                display: flex;
+                align-items: center;
+
+                gap: 10px;
+
+                padding: 7px 10px;
+
+                border:
+                    1px solid transparent;
+
+                border-radius: 12px;
+
+                background: transparent;
+
+                color: white;
+
+                cursor: pointer;
+
+                transition: .2s ease;
+            }
+
+            .user-button:hover {
+                background:
+                    rgba(74, 222, 128, .06);
+
+                border-color:
+                    rgba(134, 239, 172, .08);
+            }
+
+            .user-avatar {
+                width: 38px;
+                height: 38px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                border-radius: 50%;
+
+                background:
+                    linear-gradient(135deg,
+                        rgba(34, 197, 94, .25),
+                        rgba(16, 185, 129, .10));
+
+                border:
+                    1px solid rgba(34, 197, 94, .25);
+
+                color: #4ade80;
+
+                font-size: 13px;
+                font-weight: 800;
+            }
+
+            .user-details {
+                text-align: left;
+            }
+
+            .user-name {
+                font-size: 12px;
+                font-weight: 700;
+
+                color: #ecfdf5;
+            }
+
+            .user-email {
+                max-width: 180px;
+
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+
+                margin-top: 2px;
+
+                font-size: 10px;
+
+                color: #6f9580;
+            }
+
+            .user-arrow {
+                font-size: 11px;
+                color: #6f9580;
+            }
+
+            .user-menu {
+                position: absolute;
+
+                right: 0;
+                top: 54px;
+
+                width: 215px;
+
+                display: none;
+
+                padding: 8px;
+
+                border:
+                    1px solid rgba(74, 222, 128, .14);
+
+                border-radius: 15px;
+
+                background:
+                    rgba(8, 39, 25, .97);
+
+                box-shadow:
+                    0 25px 60px rgba(0, 20, 10, .45);
+
+                backdrop-filter: blur(18px);
+            }
+
+            .user-menu.show {
+                display: block;
+
+                animation:
+                    menuAnimation .2s ease;
+            }
+
+            @keyframes menuAnimation {
+                from {
+                    opacity: 0;
+                    transform: translateY(-5px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .menu-email {
+                padding: 9px 10px;
+
+                color: #6f9580;
+
+                font-size: 11px;
+
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .menu-divider {
+                height: 1px;
+
+                margin: 4px 0;
+
+                background:
+                    rgba(134, 239, 172, .10);
+            }
+
+            .logout-button {
+                width: 100%;
+
+                padding: 10px;
+
+                border: 0;
+                border-radius: 9px;
+
+                background: transparent;
+
+                color: #fb7185;
+
+                text-align: left;
+
+                font-size: 12px;
+                font-weight: 600;
+
+                cursor: pointer;
+            }
+
+            .logout-button:hover {
+                background:
+                    rgba(248, 113, 113, .08);
+            }
+
+
+            /* =========================================================
+           CONTENT
+        ========================================================= */
+            .content {
+                width: 100%;
+                max-width: 1500px;
+
+                margin: auto;
+
+                padding:
+                    38px clamp(18px, 4vw, 60px) 60px;
+            }
+
+
+            /* =========================================================
+           PAGE HEADING
+        ========================================================= */
+            .page-heading {
+                display: flex;
+
+                align-items: flex-end;
+                justify-content: space-between;
+
+                gap: 20px;
+
+                margin-bottom: 25px;
+            }
+
+            .heading-label {
+                display: inline-flex;
+
+                align-items: center;
+
+                gap: 7px;
+
+                color: #4ade80;
+
+                font-size: 10px;
+                font-weight: 800;
+
+                text-transform: uppercase;
+
+                letter-spacing: .14em;
+
+                margin-bottom: 8px;
+            }
+
+            .heading-label::before {
+                content: "";
+
+                width: 7px;
+                height: 7px;
+
+                border-radius: 50%;
+
+                background: #22c55e;
+
+                box-shadow:
+                    0 0 12px rgba(34, 197, 94, .65);
+            }
+
+            .page-title {
+                margin: 0;
+
+                font-size: clamp(16px, 3vw, 24px);
+
+                line-height: 1.15;
+
+                font-weight: 800;
+
+                letter-spacing: -.035em;
+
+                color: #ecfdf5;
+            }
+
+            .page-description {
+                margin-top: 8px;
+
+                color: #769985;
+
+                font-size: 12px;
+            }
+
+
+            /* =========================================================
+           PERIOD FILTER
+        ========================================================= */
+            .period-card {
+                position: relative;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: space-between;
+
+                gap: 20px;
+
+                padding: 19px 20px;
+
+                margin-bottom: 20px;
+
+                border:
+                    1px solid var(--border);
+
+                border-radius: var(--radius);
+
+                background:
+                    linear-gradient(145deg,
+                        rgba(16, 54, 36, .94),
+                        rgba(9, 42, 27, .94));
+
+                box-shadow:
+                    var(--shadow);
+
+                overflow: hidden;
+            }
+
+            .period-card::before {
+                content: "";
+
+                position: absolute;
+
+                width: 180px;
+                height: 180px;
+
+                right: -80px;
+                top: -100px;
+
+                border-radius: 50%;
+
+                background:
+                    rgba(34, 197, 94, .09);
+
+                filter: blur(10px);
+            }
+
+            .period-title {
+                font-size: 16px;
+                font-weight: 800;
+
+                color: #dffbea;
+            }
+
+            .period-description {
+                margin-top: 4px;
+
+                color: #6f9580;
+
+                font-size: 11px;
+            }
+
+            .period-controls {
+                display: flex;
+                gap: 9px;
+            }
+
+            .period-select {
+                min-width: 145px;
+                height: 43px;
+
+                padding: 0 12px;
+
+                border:
+                    1px solid rgba(134, 239, 172, .14);
+
+                border-radius: 11px;
+
+                background:
+                    #08291b;
+
+                color: #d1fae5;
+
+                outline: none;
+
+                font-size: 12px;
+                font-weight: 600;
+
+                cursor: pointer;
+
+                transition: .2s ease;
+            }
+
+            .period-select:hover {
+                border-color:
+                    rgba(134, 239, 172, .28);
+            }
+
+            .period-select:focus {
+                border-color:
+                    rgba(34, 197, 94, .55);
+
+                box-shadow:
+                    0 0 0 3px rgba(34, 197, 94, .08);
+            }
+
+
+            /* =========================================================
+           KPI GRID
+        ========================================================= */
+            .kpi-grid {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(4, minmax(0, 1fr));
+
+                gap: 15px;
+
+                margin-bottom: 10px;
+            }
+
+            .kpi-card {
+                position: relative;
+
+                overflow: hidden;
+
+                padding: 21px;
+
+                border:
+                    1px solid var(--border);
+
+                border-radius: var(--radius);
+
+                background:
+                    linear-gradient(145deg,
+                        rgba(15, 53, 35, .96),
+                        rgba(8, 39, 25, .96));
+
+                box-shadow:
+                    var(--shadow);
+
+                transition:
+                    transform .25s ease,
+                    border-color .25s ease,
+                    box-shadow .25s ease;
+            }
+
+            .kpi-card:hover {
+                transform: translateY(-3px);
+
+                border-color:
+                    rgba(74, 222, 128, .24);
+
+                box-shadow:
+                    0 22px 55px rgba(0, 30, 15, .32);
+            }
+
+            .kpi-card::before {
+                content: "";
+
+                position: absolute;
+
+                left: 0;
+                top: 0;
+
+                width: 3px;
+                height: 100%;
+
+                background:
+                    linear-gradient(to bottom,
+                        #22c55e,
+                        rgba(34, 197, 94, 0));
+
+                opacity: .80;
+            }
+
+            .kpi-card::after {
+                content: "";
+
+                position: absolute;
+
+                right: -45px;
+                top: -45px;
+
+                width: 125px;
+                height: 125px;
+
+                border-radius: 50%;
+
+                background:
+                    rgba(34, 197, 94, .055);
+            }
+
+            .kpi-top {
+                display: flex;
+
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .kpi-icon {
+                width: 41px;
+                height: 41px;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+
+                border-radius: 12px;
+
+                background:
+                    rgba(34, 197, 94, .12);
+
+                border:
+                    1px solid rgba(34, 197, 94, .15);
+
+                color: #4ade80;
+
+                font-size: 16px;
+                font-weight: 800;
+            }
+
+            .kpi-period {
+                color: #5f836e;
+
+                font-size: 9px;
+                font-weight: 600;
+
+                letter-spacing: .03em;
+            }
+
+            .kpi-label {
+                margin-top: 17px;
+
+                color: #8fb5a0;
+
+                font-size: 10px;
+                font-weight: 700;
+
+                letter-spacing: .06em;
+
+                text-transform: uppercase;
+            }
+
+            .kpi-value {
+                margin-top: 7px;
+
+                font-size: clamp(17px, 2vw, 25px);
+
+                font-weight: 800;
+
+                letter-spacing: -.035em;
+
+                color: #f0fdf4;
+
+                word-break: break-word;
+            }
+
+            .kpi-description {
+                margin-top: 6px;
+
+                color: #5f836e;
+
+                font-size: 9px;
+            }
+
+
+            /* =========================================================
+           KPI COLORS — GREEN FAMILY
+        ========================================================= */
+
+            /* SALES */
+            .kpi-card:nth-child(1)::before {
+                background:
+                    linear-gradient(to bottom,
+                        #22c55e,
+                        transparent);
+            }
+
+            .kpi-card:nth-child(1) .kpi-icon,
+            .kpi-card:nth-child(1) .kpi-value {
+                color: #4ade80;
+            }
+
+            /* HPP */
+            .kpi-card:nth-child(2)::before {
+                background:
+                    linear-gradient(to bottom,
+                        #34d399,
+                        transparent);
+            }
+
+            .kpi-card:nth-child(2) .kpi-icon {
+                color: #6ee7b7;
+
+                background:
+                    rgba(52, 211, 153, .10);
+
+                border-color:
+                    rgba(52, 211, 153, .14);
+            }
+
+            .kpi-card:nth-child(2) .kpi-value {
+                color: #6ee7b7;
+            }
+
+            /* OVERHEAD */
+            .kpi-card:nth-child(3)::before {
+                background:
+                    linear-gradient(to bottom,
+                        #fbbf24,
+                        transparent);
+            }
+
+            .kpi-card:nth-child(3) .kpi-icon {
+                color: #fbbf24;
+
+                background:
+                    rgba(245, 158, 11, .10);
+
+                border-color:
+                    rgba(245, 158, 11, .14);
+            }
+
+            .kpi-card:nth-child(3) .kpi-value {
+                color: #fbbf24;
+            }
+
+            /* PROFIT */
+            .kpi-card:nth-child(4)::before {
+                background:
+                    linear-gradient(to bottom,
+                        #86efac,
+                        transparent);
+            }
+
+            .kpi-card:nth-child(4) .kpi-icon {
+                color: #86efac;
+
+                background:
+                    rgba(134, 239, 172, .10);
+
+                border-color:
+                    rgba(134, 239, 172, .14);
+            }
+
+            .kpi-card:nth-child(4) .kpi-value {
+                color: #86efac;
+            }
+
+            /* FG RESULT */
+            .kpi-card:nth-child(5) .kpi-value {
+                color: #5eead4;
+            }
+
+
+            /* =========================================================
+           CHART GRID
+        ========================================================= */
+            .chart-grid {
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+                gap: 18px;
+            }
+
+            .chart-card {
+                position: relative;
+
+                min-width: 0;
+
+                padding: 20px;
+
+                border:
+                    1px solid var(--border);
+
+                border-radius: var(--radius);
+
+                background:
+                    linear-gradient(145deg,
+                        rgba(14, 52, 34, .95),
+                        rgba(7, 37, 24, .95));
+
+                box-shadow:
+                    var(--shadow);
+
+                overflow: hidden;
+            }
+
+            .chart-card::after {
+                content: "";
+
+                position: absolute;
+
+                top: -80px;
+                right: -80px;
+
+                width: 180px;
+                height: 180px;
+
+                border-radius: 50%;
+
+                background:
+                    rgba(34, 197, 94, .035);
+
+                pointer-events: none;
+            }
+
+            .chart-card.large {
+                grid-column: 1 / -1;
+            }
+
+            .chart-header {
+                position: relative;
+
+                z-index: 2;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: space-between;
+
+                gap: 15px;
+
+                margin-bottom: 18px;
+            }
+
+            .chart-title {
+                font-size: 14px;
+                font-weight: 800;
+
+                color: #ecfdf5;
+
+                letter-spacing: -.01em;
+            }
+
+            .chart-subtitle {
+                margin-top: 4px;
+
+                color: #6f9580;
+
+                font-size: 10px;
+            }
+
+            .chart-badge {
+                padding: 6px 9px;
+
+                border:
+                    1px solid rgba(34, 197, 94, .16);
+
+                border-radius: 8px;
+
+                color: #4ade80;
+
+                background:
+                    rgba(34, 197, 94, .08);
+
+                font-size: 9px;
+                font-weight: 700;
+
+                white-space: nowrap;
+            }
+
+            .chart-container {
+                position: relative;
+
+                width: 100%;
+                height: 310px;
+            }
+
+            .chart-container.small {
+                height: 280px;
+            }
+
+
+            /* =========================================================
+           EMPTY STATE
+        ========================================================= */
+            .empty-state {
+                position: absolute;
+                inset: 0;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+
+                color: #5f836e;
+
+                font-size: 12px;
+
+                pointer-events: none;
+            }
+
+
+            /* =========================================================
+           FOOTER
+        ========================================================= */
+            .footer {
+                margin-top: 30px;
+
+                padding-top: 20px;
+
+                border-top:
+                    1px solid rgba(134, 239, 172, .08);
+
+                text-align: center;
+
+                color: #527360;
+
+                font-size: 10px;
+            }
+
+
+            /* =========================================================
+           SCROLLBAR
+        ========================================================= */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background:
+                    #061a12;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background:
+                    #185c3a;
+
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background:
+                    #23784a;
+            }
+
+
+            /* =========================================================
+           TABLET
+        ========================================================= */
+            @media (max-width: 1100px) {
+                .kpi-grid {
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr));
+                }
+            }
+
+
+            /* =========================================================
+           MOBILE
+        ========================================================= */
+            @media (max-width: 700px) {
+
+                .header {
+                    height: 68px;
+                    padding: 0 15px;
+                }
+
+                .brand-logo {
+                    width: 37px;
+                    height: 37px;
+                }
+
+                .brand-name {
+                    font-size: 12px;
+                }
+
+                .brand-subtitle {
+                    font-size: 9px;
+                }
+
+                .user-details,
+                .user-arrow {
+                    display: none;
+                }
+
+                .user-button {
+                    padding: 4px;
+                }
+
+                .user-avatar {
+                    width: 36px;
+                    height: 36px;
+                }
+
+                .content {
+                    padding:
+                        25px 14px 40px;
+                }
+
+                .page-heading {
+                    display: block;
+                }
+
+                .page-title {
+                    font-size: 19px;
+                }
+
+                .page-description {
+                    max-width: 320px;
+                    line-height: 1.5;
+                }
+
+                .period-card {
+                    align-items: stretch;
+
+                    flex-direction: column;
+
+                    gap: 14px;
+
+                    padding: 16px;
+                }
+
+                .period-controls {
+                    width: 100%;
+                }
+
+                .period-select {
+                    flex: 1;
+                    min-width: 0;
+                }
+
+                .kpi-grid {
+                    gap: 10px;
+                }
+
+                .kpi-card {
+                    padding: 15px;
+                    border-radius: 16px;
+                }
+
+                .kpi-icon {
+                    width: 34px;
+                    height: 34px;
+
+                    border-radius: 10px;
+
+                    font-size: 13px;
+                }
+
+                .kpi-period {
+                    display: none;
+                }
+
+                .kpi-label {
+                    margin-top: 12px;
+                    font-size: 8px;
+                }
+
+                .kpi-value {
+                    font-size: 15px;
+                    margin-top: 6px;
+                }
+
+                .kpi-description {
+                    font-size: 8px;
+                }
+
+                .chart-grid {
+                    grid-template-columns: 1fr;
+                    gap: 12px;
+                }
+
+                .chart-card.large {
+                    grid-column: auto;
+                }
+
+                .chart-card {
+                    padding: 15px;
+                    border-radius: 16px;
+                }
+
+                .chart-container {
+                    height: 260px;
+                }
+
+                .chart-container.small {
+                    height: 250px;
+                }
+
+                .chart-badge {
+                    display: none;
+                }
+            }
+
+
+            /* =========================================================
+           SMALL PHONE
+        ========================================================= */
+            @media (max-width: 390px) {
+
+                .login-card {
+                    padding: 30px 20px;
+                }
+
+                .login-title {
+                    font-size: 22px;
+                }
+
+                .kpi-grid {
+                    grid-template-columns:
+                        repeat(2, 1fr);
+                }
+
+                .kpi-card {
+                    padding: 13px;
+                }
+
+                .kpi-value {
+                    font-size: 14px;
+                }
+
+                .chart-container {
+                    height: 230px;
+                }
+            }
+
+
+            /* =========================================================
+           YTD KPI — GREEN EDITION
+        ========================================================= */
+            .ytd-section {
+                margin-top: 8px;
+                margin-bottom: 25px;
+
+                padding: 20px;
+
+                border-radius: 22px;
+
+                background:
+                    linear-gradient(135deg,
+                        #0b3a25 0%,
+                        #0d4a2d 50%,
+                        #08321f 100%);
+
+                border:
+                    1px solid rgba(134, 239, 172, .12);
+
+                box-shadow:
+                    0 15px 40px rgba(0, 35, 18, .28);
+            }
+
+            .ytd-heading {
+                display: flex;
+
+                align-items: center;
+                justify-content: space-between;
+
+                gap: 20px;
+
+                margin-bottom: 18px;
+            }
+
+            .ytd-label {
+                color: #86efac;
+
+                font-size: 10px;
+                font-weight: 800;
+
+                letter-spacing: .14em;
+            }
+
+            .ytd-title {
+                margin-top: 5px;
+
+                color: #f0fdf4;
+
+                font-size: 16px;
+                font-weight: 800;
+            }
+
+            .ytd-description {
+                margin-top: 5px;
+
+                color: #9ac7aa;
+
+                font-size: 10px;
+            }
+
+            .ytd-period {
+                padding: 8px 12px;
+
+                border:
+                    1px solid rgba(134, 239, 172, .14);
+
+                border-radius: 10px;
+
+                background:
+                    rgba(255, 255, 255, .055);
+
+                color: #d1fae5;
+
+                font-size: 10px;
+                font-weight: 700;
+
+                white-space: nowrap;
+            }
+
+
+            /* =========================================================
+           YTD CARDS
+        ========================================================= */
+            .ytd-section .kpi-grid {
+                margin-bottom: 0;
+            }
+
+            .ytd-card {
+                border:
+                    1px solid rgba(134, 239, 172, .10);
+
+                background:
+                    rgba(255, 255, 255, .055);
+
+                box-shadow: none;
+
+                backdrop-filter: blur(10px);
+            }
+
+            .ytd-card .kpi-label {
+                color: #9ac7aa;
+            }
+
+            .ytd-card .kpi-value {
+                color: #f0fdf4;
+            }
+
+            .ytd-card .kpi-description {
+                color: #6f9580;
+            }
+
+            .ytd-card .kpi-period {
+                color: #6f9580;
+            }
+
+
+            /* SALES */
+            .ytd-sales .kpi-icon {
+                background:
+                    rgba(34, 197, 94, .15);
+
+                color: #4ade80;
+            }
+
+            .ytd-sales .kpi-value {
+                color: #4ade80;
+            }
+
+
+            /* HPP */
+            .ytd-hpp .kpi-icon {
+                background:
+                    rgba(52, 211, 153, .15);
+
+                color: #6ee7b7;
+            }
+
+            .ytd-hpp .kpi-value {
+                color: #6ee7b7;
+            }
+
+
+            /* OVERHEAD */
+            .ytd-overhead .kpi-icon {
+                background:
+                    rgba(245, 158, 11, .15);
+
+                color: #fbbf24;
+            }
+
+            .ytd-overhead .kpi-value {
+                color: #fbbf24;
+            }
+
+
+            /* PROFIT */
+            .ytd-profit .kpi-icon {
+                background:
+                    rgba(134, 239, 172, .15);
+
+                color: #86efac;
+            }
+
+            .ytd-profit .kpi-value {
+                color: #86efac;
+            }
+
+
+            /* =========================================================
+           YTD MOBILE
+        ========================================================= */
+            @media (max-width: 700px) {
+
+                .ytd-section {
+                    padding: 15px;
+                    border-radius: 18px;
+                }
+
+                .ytd-heading {
+                    align-items: flex-start;
+
+                    flex-direction: column;
+
+                    gap: 10px;
+                }
+
+                .ytd-period {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+
+        <!-- =========================================================
+        LOGIN
+========================================================== -->
+        <section id="loginPage">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="login-logo">
+                        <img src="logo-perusahaan.png" alt="Logo Perusahaan">
+                    </div>
+                    <div class="login-title">
+                        Report Data Prema Rasa
+                    </div>
+                    <div class="login-subtitle">
+                        Sign in untuk melihat laporan perusahaan
+                    </div>
+                    <div id="loginError" class="login-error"></div>
+                    <form id="loginForm">
+                        <div class="login-group">
+                            <label class="login-label">
+                                Email
+                            </label>
+                            <input id="email" class="login-input" type="email" placeholder="nama@email.com"
+                                autocomplete="email" required>
+                        </div>
+                        <div class="login-group">
+                            <label class="login-label">
+                                Password
+                            </label>
+                            <input id="password" class="login-input" type="password" placeholder="Masukkan password"
+                                autocomplete="current-password" required>
+                        </div>
+                        <button id="loginButton" class="login-button" type="submit">
+                            Sign In
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================================
+     LOADING
+========================================================== -->
+        <div id="loadingScreen">
+            <div class="loading-box">
+                <div class="loading-spinner"></div>
+                <div class="loading-title">
+                    Menyiapkan Report
+                </div>
+                <div id="loadingText" class="loading-description">
+                    Mengambil data dari Firestore...
+                </div>
+            </div>
+        </div>
+        <!-- =========================================================
+     APP
+========================================================== -->
+        <div id="app">
+            <div class="app-wrapper">
+                <!-- =====================================================
+             HEADER
+        ====================================================== -->
+                <header class="header">
+                    <div class="brand">
+                        <div class="brand-logo">
+                            <img src="logo-perusahaan.png" alt="Logo Perusahaan">
+                        </div>
+                        <div>
+                            <div class="brand-name">
+                                Report Data Prema Rasa
+                            </div>
+                            <div class="brand-subtitle">
+                                Management Summary
+                            </div>
+                        </div>
+                    </div>
+                    <!-- USER -->
+                    <div class="user-area">
+                        <button id="userButton" class="user-button" type="button">
+                            <div id="userAvatar" class="user-avatar">
+                                U
+                            </div>
+                            <div class="user-details">
+                                <div id="userName" class="user-name">
+                                    User
+                                </div>
+                                <div id="userEmail" class="user-email">
+                                    -
+                                </div>
+                            </div>
+                            <div class="user-arrow">
+                                ▼
+                            </div>
+                        </button>
+                        <!-- USER MENU -->
+                        <div id="userMenu" class="user-menu">
+                            <div id="menuEmail" class="menu-email">
+                                -
+                            </div>
+                            <div class="menu-divider"></div>
+                            <button id="logoutButton" class="logout-button">
+                                ↪ &nbsp; Logout
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+                <main class="content">
+                    <!-- PAGE TITLE -->
+                    <section class="page-heading">
+                        <div>
+                            <div class="heading-label">
+                                Executive Summary
+                            </div>
+                            <h1 class="page-title">
+                                Sales Performance Prema Rasa
+                            </h1>
+                            <div class="page-description">
+                                Ringkasan performa penjualan,
+                                produksi, biaya dan profit.
+                            </div>
+                        </div>
+                    </section>
+                    <!-- =================================================
+                 PERIOD
+            ================================================== -->
+                    <section class="period-card">
+                        <div>
+                            <div class="period-title">
+                                Periode Laporan
+                            </div>
+                            <div class="period-description">
+                                Pilih periode untuk menampilkan
+                                laporan yang diinginkan.
+                            </div>
+                        </div>
+                        <div class="period-controls">
+                            <select id="dashMonth" class="period-select"></select>
+                            <select id="dashYear" class="period-select"></select>
+                        </div>
+                    </section>
+                    <!-- =================================================
+                 KPI
+            ================================================== -->
+                    <section class="kpi-grid">
+                        <!-- SALES -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon">
+                                    Rp
+                                </div>
+                                <div id="salesPeriod" class="kpi-period">
+                                    -
+                                </div>
+                            </div>
+                            <div class="kpi-label">
+                                Total Sales
+                            </div>
+                            <div id="dashTotalSales" class="kpi-value">
+                                Rp 0
+                            </div>
+                            <div class="kpi-description">
+                                Total penjualan periode terpilih
+                            </div>
+                        </div>
+                        <!-- COST PRODUCTION -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon">
+                                    📦
+                                </div>
+                                <div id="hppPeriod" class="kpi-period">
+                                    -
+                                </div>
+                            </div>
+                            <div class="kpi-label">
+                                Hpp Production
+                            </div>
+                            <div id="dashTotalCOGS" class="kpi-value">
+                                Rp 0
+                            </div>
+                            <div class="kpi-description">
+                                Total Cost production
+                            </div>
+                        </div>
+                        <!-- COST -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon">
+                                    💰
+                                </div>
+                                <div id="costPeriod" class="kpi-period">
+                                    -
+                                </div>
+                            </div>
+                            <div class="kpi-label">
+                                Cost Overhead
+                            </div>
+                            <div id="dashTotalCostProduction" class="kpi-value">
+                                Rp 0
+                            </div>
+                            <div class="kpi-description">
+                                Total Cost Overhead
+                            </div>
+                        </div>
+                        <!-- PROFIT -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon">
+                                    📈
+                                </div>
+                                <div id="profitPeriod" class="kpi-period">
+                                    -
+                                </div>
+                            </div>
+                            <div class="kpi-label">
+                                Net Profit
+                            </div>
+                            <div id="dashNettProfit" class="kpi-value">
+                                Rp 0
+                            </div>
+                            <div class="kpi-description">
+                                Sales - Production Cost
+                            </div>
+                        </div>
+
+                    </section>
+                    <!-- =========================================================
+                     KPI YTD
+                ========================================================== -->
+                    <section class="ytd-section">
+                        <div class="ytd-heading">
+                            <div>
+                                <div class="ytd-label">
+                                    YEAR TO DATE
+                                </div>
+                                <div class="ytd-title">
+                                    Akumulasi Periode Tahun Berjalan
+                                </div>
+                                <div class="ytd-description">
+                                    Akumulasi dari Januari sampai periode laporan yang dipilih.
+                                </div>
+                            </div>
+                            <div class="ytd-period" id="ytdPeriod">
+                                Januari - Desember 2026
+                            </div>
+                        </div>
+                        <div class="kpi-grid">
+                            <!-- YTD SALES -->
+                            <div class="kpi-card ytd-card ytd-sales">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon">
+                                        Rp
+                                    </div>
+                                    <div class="kpi-period">
+                                        YTD
+                                    </div>
+                                </div>
+                                <div class="kpi-label">
+                                    YTD Sales
+                                </div>
+                                <div class="kpi-value" id="dashYTDSales">
+                                    Rp 0
+                                </div>
+                                <div class="kpi-description">
+                                    Akumulasi sales Januari sampai periode terpilih
+                                </div>
+                            </div>
+
+                            <!-- YTD HPP -->
+                            <div class="kpi-card ytd-card ytd-hpp">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon">
+                                        📦
+                                    </div>
+                                    <div class="kpi-period">
+                                        YTD
+                                    </div>
+                                </div>
+                                <div class="kpi-label">
+                                    YTD HPP Production
+                                </div>
+                                <div class="kpi-value" id="dashYTDHPP">
+                                    Rp 0
+                                </div>
+                                <div class="kpi-description">
+                                    Akumulasi HPP produksi Januari sampai periode terpilih
+                                </div>
+                            </div>
+
+                            <!-- YTD OVERHEAD -->
+                            <div class="kpi-card ytd-card ytd-overhead">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon">
+                                        💰
+                                    </div>
+                                    <div class="kpi-period">
+                                        YTD
+                                    </div>
+                                </div>
+
+                                <div class="kpi-label">
+                                    YTD Cost Overhead
+                                </div>
+                                <div class="kpi-value" id="dashYTDOverhead">
+                                    Rp 0
+                                </div>
+                                <div class="kpi-description">
+                                    Akumulasi overhead Januari sampai periode terpilih
+                                </div>
+                            </div>
+
+                            <!-- YTD NET PROFIT -->
+                            <div class="kpi-card ytd-card ytd-profit">
+                                <div class="kpi-top">
+                                    <div class="kpi-icon">
+                                        📈
+                                    </div>
+                                    <div class="kpi-period">
+                                        YTD
+                                    </div>
+                                </div>
+                                <div class="kpi-label">
+                                    YTD Net Profit
+                                </div>
+                                <div class="kpi-value" id="dashYTDNetProfit">
+                                    Rp 0
+                                </div>
+                                <div class="kpi-description">
+                                    YTD Sales − HPP − Overhead
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- =================================================
+                 CHARTS
+            ================================================== -->
+                    <section class="chart-grid">
+                        <!-- SALES -->
+                        <div class="chart-card large">
+                            <div class="chart-header">
+                                <div>
+                                    <div class="chart-title">
+                                        Sales Trend
+                                    </div>
+                                    <div class="chart-subtitle">
+                                        Performa penjualan bulanan
+                                        untuk tahun yang dipilih.
+                                    </div>
+                                </div>
+                                <div class="chart-badge">
+                                    ANNUAL SALES
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                        <!-- PRODUCTION -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <div class="chart-title">
+                                        Production
+                                    </div>
+
+                                    <div class="chart-subtitle">
+                                        Finished goods per bulan.
+                                    </div>
+                                </div>
+                                <div class="chart-badge">
+                                    PCS
+                                </div>
+                            </div>
+                            <div class="chart-container small">
+                                <canvas id="productionChart"></canvas>
+                            </div>
+                        </div>
+                        <!-- PRODUCT -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <div class="chart-title">
+                                        Best Selling Product
+                                    </div>
+                                    <div class="chart-subtitle">
+                                        Top 10 produk berdasarkan quantity.
+                                    </div>
+                                </div>
+                                <div class="chart-badge">
+                                    TOP 10
+                                </div>
+                            </div>
+                            <div class="chart-container small">
+                                <canvas id="variantChart"></canvas>
+                            </div>
+                        </div>
+                        <!-- STORE -->
+                        <div class="chart-card large">
+                            <div class="chart-header">
+                                <div>
+                                    <div class="chart-title">
+                                        Best Sales Store
+                                    </div>
+                                    <div class="chart-subtitle">
+                                        Top 10 store berdasarkan
+                                        nilai penjualan.
+                                    </div>
+                                </div>
+                                <div class="chart-badge">
+                                    TOP 10
+                                </div>
+                            </div>
+                            <div class="chart-container small">
+                                <canvas id="storeChart"></canvas>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="footer">
+                        Sales Executive Report • Firebase Firestore
+                    </div>
+                </main>
+            </div>
+        </div>
+        <!-- =============================================================
+     FIREBASE
+============================================================= -->
+        <script type="module">
+            /* =========================================================
+               FIREBASE IMPORT
+            ========================================================== */
+            import {
+                initializeApp
+            } from
+                "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+            import {
+                getAuth,
+                onAuthStateChanged,
+                signInWithEmailAndPassword,
+                signOut
+            } from
+                "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+            import {
+                getFirestore,
+                collection,
+                getDocs
+            } from
+                "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+            /* =========================================================
+               FIREBASE CONFIG
+               GANTI DENGAN CONFIG FIREBASE ANDA
+            ========================================================== */
+            const firebaseConfig = {
+                apiKey: "AIzaSyAINEugboloQA7jg7PDWMM9GHsMMXwM2Cg",
+                authDomain: "prema-rasa-v2.firebaseapp.com",
+                projectId: "prema-rasa-v2",
+                storageBucket: "prema-rasa-v2.firebasestorage.app",
+                messagingSenderId: "397923099388",
+                appId: "1:397923099388:web:0c1842519b5d4b9246ed79",
+                measurementId: "G-QKXHYDN63D"
+            };
+
+            /* =========================================================
+               INITIALIZE
+            ========================================================== */
+            const firebaseApp = initializeApp(firebaseConfig);
+            const auth = getAuth(firebaseApp);
+            const db = getFirestore(firebaseApp);
+            /* =========================================================
+               GLOBAL CHART VARIABLES
+            ========================================================== */
+            let salesChart = null;
+            let productionChart = null;
+            let variantChart = null;
+            let storeChart = null;
+            let dashboardTotalSales = 0;
+            let dashboardTotalProductionCost = 0;
+            /* =========================================================
+               DOM
+            ========================================================== */
+            const loginPage = document.getElementById("loginPage");
+            const appPage = document.getElementById("app");
+            const loadingScreen = document.getElementById("loadingScreen");
+            const loadingText = document.getElementById("loadingText");
+            const loginForm = document.getElementById("loginForm");
+            const loginButton = document.getElementById("loginButton");
+            const loginError = document.getElementById("loginError");
+            /* =========================================================
+               LOADING
+            ========================================================== */
+            function showLoading(
+                message
+            ) {
+                loadingText.textContent =
+                    message ||
+                    "Memproses...";
+                loadingScreen.style.display =
+                    "flex";
+            }
+            function hideLoading() {
+                loadingScreen.style.display =
+                    "none";
+            }
+            /* =========================================================
+               FORMAT RUPIAH
+            ========================================================== */
+            function formatRupiah(
+                value
+            ) {
+                return "Rp " +
+
+                    Number(
+                        value || 0
+                    ).toLocaleString(
+                        "id-ID",
+                        {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2
+                        }
+                    );
+            }
+
+            /* =========================================================
+               PARSE DATE
+            ========================================================== */
+            function parseDate(
+                value
+            ) {
+                if (!value) {
+                    return null;
+
+                }
+
+                /* FIREBASE TIMESTAMP */
+
+                if (
+                    value &&
+                    typeof value.toDate ===
+                    "function"
+                ) {
+
+                    return value.toDate();
+                }
+
+                /* YYYY-MM-DD */
+                if (
+                    typeof value === "string" &&
+                    /^\d{4}-\d{2}-\d{2}$/.test(
+                        value
+                    )
+                ) {
+                    const parts =
+                        value.split("-")
+                            .map(Number);
+
+
+                    return new Date(
+                        parts[0],
+                        parts[1] - 1,
+                        parts[2]
+                    );
+                }
+
+                const date =
+                    new Date(value);
+                if (
+                    isNaN(
+                        date.getTime()
+                    )
+                ) {
+                    return null;
+                }
+                return date;
+            }
+
+
+            /* =========================================================
+               CURRENT PERIOD LABEL
+            ========================================================== */
+            function getPeriodLabel() {
+                const month =
+                    Number(
+                        document.getElementById(
+                            "dashMonth"
+                        ).value
+                    );
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+                const monthNames = [
+                    "Januari",
+                    "Februari",
+                    "Maret",
+                    "April",
+                    "Mei",
+                    "Juni",
+                    "Juli",
+                    "Agustus",
+                    "September",
+                    "Oktober",
+                    "November",
+                    "Desember"
+                ];
+                return (
+                    monthNames[
+                    month - 1
+                    ] +
+                    " " +
+                    year
+                );
+            }
+            /* =========================================================
+               UPDATE PERIOD LABEL
+            ========================================================== */
+            function updatePeriodLabels() {
+                const label =
+                    getPeriodLabel();
+
+                document.getElementById(
+                    "salesPeriod"
+                ).textContent = label;
+
+
+                document.getElementById(
+                    "hppPeriod"
+                ).textContent = label;
+
+                document.getElementById(
+                    "costPeriod"
+                ).textContent = label;
+
+                document.getElementById(
+                    "profitPeriod"
+                ).textContent = label;
+
+            }
+
+            /* =========================================================
+               INIT FILTER
+            ========================================================== */
+            function initDashboard() {
+                const month =
+                    document.getElementById(
+                        "dashMonth"
+                    );
+                const year =
+                    document.getElementById(
+                        "dashYear"
+                    );
+                month.innerHTML = "";
+                year.innerHTML = "";
+                const monthNames = [
+                    "Januari",
+                    "Februari",
+                    "Maret",
+                    "April",
+                    "Mei",
+                    "Juni",
+                    "Juli",
+                    "Agustus",
+                    "September",
+                    "Oktober",
+                    "November",
+                    "Desember"
+                ];
+                monthNames.forEach(
+                    (
+                        name,
+                        index
+                    ) => {
+                        const option =
+                            document.createElement(
+                                "option"
+                            );
+                        option.value =
+                            index + 1;
+                        option.textContent =
+                            name;
+                        month.appendChild(
+                            option
+                        );
+                    }
+                );
+
+                const now =
+                    new Date();
+                const currentYear =
+                    now.getFullYear();
+                for (
+                    let y =
+                        currentYear - 3;
+                    y <=
+                    currentYear + 14;
+
+                    y++
+                ) {
+                    const option =
+                        document.createElement(
+                            "option"
+                        );
+                    option.value =
+                        y;
+                    option.textContent =
+                        y;
+                    year.appendChild(
+                        option
+                    );
+                }
+                month.value = now.getMonth() + 1;
+                year.value = currentYear;
+                month.addEventListener("change", refreshDashboard);
+                year.addEventListener("change", refreshDashboard);
+                updatePeriodLabels();
+            }
+
+            /* =========================================================
+               SALES
+            ========================================================== */
+            async function loadDashboardSales() {
+                const month =
+                    Number(
+                        document.getElementById(
+                            "dashMonth"
+                        ).value
+                    );
+
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+                const snapshot =
+                    await getDocs(
+                        collection(
+                            db,
+                            "sales"
+                        )
+                    );
+                let totalSales = 0;
+                const monthlySales =
+                    Array(12).fill(0);
+                snapshot.forEach(
+                    doc => {
+                        const data =
+                            doc.data();
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+                        if (!date)
+                            return;
+                        const itemYear =
+                            date.getFullYear()
+                        const itemMonth =
+                            date.getMonth() + 1;
+                        if (
+                            itemYear === year
+                        ) {
+                            monthlySales[
+                                itemMonth - 1
+                            ] += Number(
+                                data.value || 0
+                            );
+                        }
+                        if (
+                            itemYear === year &&
+                            itemMonth === month
+
+                        ) {
+                            totalSales +=
+                                Number(
+                                    data.value || 0
+                                );
+                        }
+                    }
+                );
+                dashboardTotalSales =
+                    totalSales;
+                document.getElementById(
+                    "dashTotalSales"
+                ).textContent =
+                    formatRupiah(
+                        totalSales
+                    );
+                renderSalesChart(
+                    monthlySales
+                );
+            }
+            /* =========================================================
+               SALES CHART
+            ========================================================== */
+            function renderSalesChart(
+                monthlySales
+            ) {
+                const canvas =
+                    document.getElementById(
+                        "salesChart"
+                    );
+                if (salesChart) {
+
+                    salesChart.destroy();
+                }
+                salesChart =
+                    new Chart(
+                        canvas,
+                        {
+                            type: "line",
+
+                            data: {
+
+                                labels: [
+
+                                    "Jan",
+                                    "Feb",
+                                    "Mar",
+                                    "Apr",
+                                    "Mei",
+                                    "Jun",
+                                    "Jul",
+                                    "Agu",
+                                    "Sep",
+                                    "Okt",
+                                    "Nov",
+                                    "Des"
+
+                                ],
+
+                                datasets: [
+
+                                    {
+
+                                        label:
+                                            "Sales",
+                                        data:
+                                            monthlySales,
+                                        borderColor:
+                                            "#16a34a",
+                                        backgroundColor:
+                                            "rgba(34,197,94,.10)",
+                                        fill: true,
+                                        tension: .4,
+                                        borderWidth: 3,
+                                        pointRadius: 3,
+                                        pointHoverRadius: 6,
+                                        pointBackgroundColor: "#16a34a",
+                                        pointBorderColor: "#ffffff",
+                                        pointBorderWidth: 2
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                interaction: {
+                                    mode:
+                                        "index",
+                                    intersect:
+                                        false
+                                },
+                                plugins: {
+                                    legend: {
+                                        display:
+                                            false
+                                    },
+                                    tooltip: {
+                                        backgroundColor: "#0f172a",
+                                        padding: 12,
+                                        callbacks: {
+                                            label:
+                                                context =>
+                                                    " " +
+                                                    formatRupiah(
+                                                        context.raw
+                                                    )
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        grid: {
+                                            display:
+                                                false
+                                        },
+                                        ticks: {
+                                            color: "#94a3b8",
+                                            font: {
+                                                size:
+                                                    10
+                                            }
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        border: {
+                                            display: false
+                                        },
+                                        grid: {
+                                            color: "#eef2f7"
+
+                                        },
+                                        ticks: {
+                                            color: "#94a3b8",
+                                            font: {
+                                                size: 9
+                                            },
+                                            callback:
+                                                value => {
+                                                    if (
+                                                        value >=
+                                                        1000000000
+                                                    ) {
+
+                                                        return (
+                                                            "Rp " +
+                                                            (
+                                                                value /
+                                                                1000000000
+                                                            ).toFixed(1) +
+                                                            " M"
+                                                        );
+                                                    }
+                                                    if (
+                                                        value >=
+                                                        1000000
+                                                    ) {
+                                                        return (
+                                                            "Rp " +
+                                                            (
+                                                                value /
+                                                                1000000
+                                                            ).toFixed(0) +
+                                                            " Jt"
+                                                        );
+                                                    }
+                                                    return (
+                                                        "Rp " +
+                                                        Number(
+                                                            value
+                                                        ).toLocaleString(
+                                                            "id-ID"
+                                                        )
+                                                    );
+                                                }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    );
+            }
+
+            /* =========================================================
+               PRODUCTION KPI
+            ========================================================== */
+            async function loadDashboardProduction() {
+
+                const month =
+                    Number(
+                        document.getElementById(
+                            "dashMonth"
+                        ).value
+                    );
+
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+
+                const snapshot =
+                    await getDocs(
+                        collection(
+                            db,
+                            "production_results"
+                        )
+                    );
+
+                let totalFG = 0;
+
+                snapshot.forEach(
+                    doc => {
+
+                        const data =
+                            doc.data();
+
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+
+                        if (!date)
+                            return;
+
+                        if (
+                            date.getFullYear() === year &&
+                            date.getMonth() + 1 === month
+                        ) {
+
+                            totalFG +=
+                                Number(
+                                    data.fgPcs || 0
+                                );
+
+                        }
+
+                    }
+                );
+            }
+
+            /* =========================================================
+               PRODUCTION CHART
+            ========================================================== */
+            async function loadProductionChart() {
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+
+
+                const snapshot =
+                    await getDocs(
+                        collection(
+                            db,
+                            "production_results"
+                        )
+                    );
+
+                const monthlyFG =
+                    Array(12).fill(0);
+                snapshot.forEach(
+                    doc => {
+
+                        const data =
+                            doc.data();
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+
+                        if (!date)
+                            return;
+
+                        if (
+                            date.getFullYear()
+                            === year
+                        ) {
+                            monthlyFG[
+                                date.getMonth()
+                            ] += Number(
+                                data.fgPcs || 0
+                            );
+
+                        }
+
+                    }
+                );
+
+                if (productionChart) {
+                    productionChart.destroy();
+
+                }
+                productionChart =
+                    new Chart(
+                        document.getElementById(
+                            "productionChart"
+                        ),
+
+                        {
+                            type:
+                                "bar",
+                            data: {
+                                labels: [
+
+                                    "Jan",
+                                    "Feb",
+                                    "Mar",
+                                    "Apr",
+                                    "Mei",
+                                    "Jun",
+                                    "Jul",
+                                    "Agu",
+                                    "Sep",
+                                    "Okt",
+                                    "Nov",
+                                    "Des"
+
+                                ],
+
+                                datasets: [
+                                    {
+                                        label: "Production",
+                                        data: monthlyFG,
+                                        backgroundColor: "#22c55e",
+                                        borderRadius: 7,
+                                        maxBarThickness: 45
+
+
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display:
+                                            false
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        grid: {
+                                            display:
+                                                false
+                                        },
+                                        ticks: {
+                                            color: "#94a3b8",
+                                            font: {
+                                                size: 9
+                                            }
+                                        }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        border: {
+                                            display: false
+                                        },
+
+                                        grid: {
+                                            color: "#eef2f7"
+                                        },
+
+                                        ticks: {
+                                            color: "#94a3b8",
+                                            font: {
+                                                size: 9
+                                            },
+                                            callback:
+                                                value =>
+                                                    Number(
+                                                        value
+                                                    ).toLocaleString(
+                                                        "id-ID"
+                                                    )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    );
+            }
+            /* =========================================================
+               PRODUCTION COST
+            ========================================================== */
+            async function loadDashboardCostProduction() {
+                const month =
+                    Number(
+                        document.getElementById(
+                            "dashMonth"
+                        ).value
+                    );
+
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+
+                const [
+                    productionSnapshot,
+                    recipeSnapshot,
+                    materialSnapshot,
+                    costSnapshot
+                ] = await Promise.all([
+                    getDocs(
+                        collection(
+                            db,
+                            "production_results"
+                        )
+                    ),
+                    getDocs(
+                        collection(
+                            db,
+                            "product_recipes"
+                        )
+                    ),
+                    getDocs(
+                        collection(
+                            db,
+                            "materials"
+                        )
+                    ),
+                    getDocs(
+                        collection(
+                            db,
+                            "production_cost"
+                        )
+                    )
+                ]);
+
+                const fgMap = {};
+                let totalCOGS = 0;
+                let totalOverhead = 0;
+                /* =====================================================
+                   FG MAP
+                ====================================================== */
+                productionSnapshot.forEach(
+                    doc => {
+                        const data =
+                            doc.data();
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+
+                        if (!date)
+                            return;
+
+                        if (
+                            date.getFullYear() === year &&
+                            date.getMonth() + 1 === month
+
+                        ) {
+                            const productCode = data.productCode;
+                            if (!productCode) return;
+                            if (!fgMap[productCode]
+                            ) {
+                                fgMap[
+                                    productCode
+                                ] = {
+                                    qty: 0
+                                };
+                            }
+                            fgMap[
+                                productCode
+                            ].qty +=
+                                Number(
+                                    data.fgPcs || 0
+                                );
+                        }
+                    }
+                );
+                /* =====================================================
+                   MATERIAL MAP
+                ====================================================== */
+                const materialMap = {};
+                materialSnapshot.forEach(
+                    doc => {
+                        const material =
+                            doc.data();
+                        if (!material.name)
+                            return;
+                        const key =
+                            material.name
+                                .trim()
+                                .toLowerCase();
+                        materialMap[key] =
+                            Number(
+                                material.average || 0
+                            );
+                    }
+                );
+                /* =====================================================
+                   RECIPE MAP
+                ====================================================== */
+                const recipeMap = {};
+                recipeSnapshot.forEach(
+                    doc => {
+                        const recipe =
+                            doc.data();
+                        if (
+                            !recipe.productCode
+                        )
+                            return;
+                        if (
+                            !recipeMap[
+                            recipe.productCode
+                            ]
+                        ) {
+                            recipeMap[
+                                recipe.productCode
+                            ] = [];
+
+                        }
+                        recipeMap[
+                            recipe.productCode
+                        ].push(
+                            recipe
+                        );
+
+                    }
+                );
+
+                /* =====================================================
+                   COGS
+                ====================================================== */
+                for (
+                    const productCode
+                    in fgMap
+                ) {
+
+                    const recipes =
+                        recipeMap[
+                        productCode
+                        ] || [];
+
+
+                    for (
+                        const recipe
+                        of recipes
+                    ) {
+
+                        if (
+                            !recipe.material
+                        )
+                            continue;
+
+
+                        const materialKey =
+                            recipe.material
+                                .trim()
+                                .toLowerCase();
+
+
+                        const average =
+                            materialMap[
+                            materialKey
+                            ];
+
+
+                        if (
+                            average ===
+                            undefined
+                        ) {
+
+                            continue;
+
+                        }
+                        const usedQty =
+
+                            Number(
+                                recipe.qty || 0
+                            ) *
+
+                            Number(
+                                fgMap[
+                                    productCode
+                                ].qty || 0
+                            );
+
+
+                        totalCOGS +=
+                            usedQty *
+                            average;
+                    }
+                }
+                /* =====================================================
+                   OVERHEAD
+                ====================================================== */
+                costSnapshot.forEach(
+                    doc => {
+
+                        const data =
+                            doc.data();
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+
+                        if (!date)
+                            return;
+
+                        if (
+
+                            date.getFullYear()
+                            === year &&
+
+                            date.getMonth() + 1
+                            === month
+
+                        ) {
+
+                            totalOverhead +=
+                                Number(
+                                    data.value || 0
+                                );
+                        }
+
+                    }
+                );
+
+                dashboardTotalProductionCost =
+                    totalCOGS +
+                    totalOverhead;
+
+                document.getElementById(
+                    "dashTotalCostProduction"
+                ).textContent =
+
+                    formatRupiah(
+                        totalOverhead
+                    );
+
+                document.getElementById(
+                    "dashTotalCOGS"
+                ).textContent =
+                    "Rp " +
+                    totalCOGS.toLocaleString("id-ID");
+
+            }
+
+            /* =========================================================
+               NET PROFIT
+            ========================================================= */
+            function loadDashboardNetProfit() {
+                const netProfit =
+                    dashboardTotalSales -
+                    dashboardTotalProductionCost;
+                const element =
+                    document.getElementById(
+                        "dashNettProfit"
+                    );
+                element.textContent =
+                    formatRupiah(
+                        netProfit
+                    );
+
+                if (
+                    netProfit >= 0
+                ) {
+                    element.style.color =
+                        "#15803d";
+
+                } else {
+                    element.style.color =
+                        "#dc2626";
+                }
+            }
+
+            /* =========================================================
+      YTD KPI
+      Mengikuti dashMonth dan dashYear
+      Contoh:
+      Agustus 2026 = Januari s/d Agustus 2026
+   ========================================================== */
+            async function loadDashboardYTD() {
+
+                const month =
+                    Number(
+                        document.getElementById(
+                            "dashMonth"
+                        ).value
+                    );
+
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+
+
+                /* =====================================================
+                   LOAD DATA
+                ====================================================== */
+
+                const [
+                    salesSnapshot,
+                    productionSnapshot,
+                    recipeSnapshot,
+                    materialSnapshot,
+                    costSnapshot
+                ] = await Promise.all([
+
+                    getDocs(
+                        collection(
+                            db,
+                            "sales"
+                        )
+                    ),
+
+                    getDocs(
+                        collection(
+                            db,
+                            "production_results"
+                        )
+                    ),
+
+                    getDocs(
+                        collection(
+                            db,
+                            "product_recipes"
+                        )
+                    ),
+
+                    getDocs(
+                        collection(
+                            db,
+                            "materials"
+                        )
+                    ),
+
+                    getDocs(
+                        collection(
+                            db,
+                            "production_cost"
+                        )
+                    )
+
+                ]);
+
+
+                /* =====================================================
+                   YTD SALES
+                   Januari sampai bulan terpilih
+                ====================================================== */
+
+                let ytdSales = 0;
+
+                salesSnapshot.forEach(
+                    doc => {
+
+                        const data =
+                            doc.data();
+
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+
+                        if (!date)
+                            return;
+
+
+                        const itemYear =
+                            date.getFullYear();
+
+                        const itemMonth =
+                            date.getMonth() + 1;
+
+
+                        if (
+                            itemYear === year &&
+                            itemMonth <= month
+                        ) {
+
+                            ytdSales +=
+                                Number(
+                                    data.value || 0
+                                );
+
+                        }
+
+                    }
+                );
+
+
+                /* =====================================================
+                   MATERIAL MAP
+                ====================================================== */
+
+                const materialMap = {};
+
+                materialSnapshot.forEach(
+                    doc => {
+
+                        const material =
+                            doc.data();
+
+                        if (!material.name)
+                            return;
+
+
+                        const key =
+                            material.name
+                                .trim()
+                                .toLowerCase();
+
+
+                        materialMap[key] =
+                            Number(
+                                material.average || 0
+                            );
+
+                    }
+                );
+
+
+                /* =====================================================
+                   RECIPE MAP
+                ====================================================== */
+
+                const recipeMap = {};
+
+                recipeSnapshot.forEach(
+                    doc => {
+
+                        const recipe =
+                            doc.data();
+
+                        if (
+                            !recipe.productCode
+                        )
+                            return;
+
+
+                        if (
+                            !recipeMap[
+                            recipe.productCode
+                            ]
+                        ) {
+
+                            recipeMap[
+                                recipe.productCode
+                            ] = [];
+
+                        }
+
+
+                        recipeMap[
+                            recipe.productCode
+                        ].push(
+                            recipe
+                        );
+
+                    }
+                );
+
+
+                /* =====================================================
+                   YTD PRODUCTION
+                   Januari sampai bulan terpilih
+                ====================================================== */
+
+                const fgMap = {};
+
+                productionSnapshot.forEach(
+                    doc => {
+
+                        const data =
+                            doc.data();
+
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+
+                        if (!date)
+                            return;
+
+
+                        const itemYear =
+                            date.getFullYear();
+
+                        const itemMonth =
+                            date.getMonth() + 1;
+
+
+                        if (
+                            itemYear === year &&
+                            itemMonth <= month
+                        ) {
+
+                            const productCode =
+                                data.productCode;
+
+
+                            if (!productCode)
+                                return;
+
+
+                            if (
+                                !fgMap[
+                                productCode
+                                ]
+                            ) {
+
+                                fgMap[
+                                    productCode
+                                ] = {
+                                    qty: 0
+                                };
+
+                            }
+
+
+                            fgMap[
+                                productCode
+                            ].qty +=
+                                Number(
+                                    data.fgPcs || 0
+                                );
+
+                        }
+
+                    }
+                );
+
+
+                /* =====================================================
+                   YTD HPP
+                ====================================================== */
+
+                let ytdHPP = 0;
+
+
+                for (
+                    const productCode
+                    in fgMap
+                ) {
+
+                    const recipes =
+                        recipeMap[
+                        productCode
+                        ] || [];
+
+
+                    for (
+                        const recipe
+                        of recipes
+                    ) {
+
+                        if (
+                            !recipe.material
+                        )
+                            continue;
+
+
+                        const materialKey =
+                            recipe.material
+                                .trim()
+                                .toLowerCase();
+
+
+                        const average =
+                            materialMap[
+                            materialKey
+                            ];
+
+
+                        if (
+                            average === undefined
+                        ) {
+
+                            continue;
+
+                        }
+
+
+                        const usedQty =
+                            Number(
+                                recipe.qty || 0
+                            ) *
+                            Number(
+                                fgMap[
+                                    productCode
+                                ].qty || 0
+                            );
+
+
+                        ytdHPP +=
+                            usedQty *
+                            average;
+
+                    }
+
+                }
+
+
+                /* =====================================================
+                   YTD COST OVERHEAD
+                ====================================================== */
+
+                let ytdOverhead = 0;
+
+
+                costSnapshot.forEach(
+                    doc => {
+
+                        const data =
+                            doc.data();
+
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+
+                        if (!date)
+                            return;
+
+
+                        const itemYear =
+                            date.getFullYear();
+
+                        const itemMonth =
+                            date.getMonth() + 1;
+
+
+                        if (
+                            itemYear === year &&
+                            itemMonth <= month
+                        ) {
+
+                            ytdOverhead +=
+                                Number(
+                                    data.value || 0
+                                );
+
+                        }
+
+                    }
+                );
+
+
+                /* =====================================================
+                   YTD NET PROFIT
+            
+                   Sales - HPP - Overhead
+                ====================================================== */
+
+                const ytdNetProfit =
+                    ytdSales -
+                    ytdHPP -
+                    ytdOverhead;
+
+
+                /* =====================================================
+                   UPDATE KPI YTD
+                ====================================================== */
+
+                document.getElementById(
+                    "dashYTDSales"
+                ).textContent =
+                    formatRupiah(
+                        ytdSales
+                    );
+
+
+                document.getElementById(
+                    "dashYTDHPP"
+                ).textContent =
+                    formatRupiah(
+                        ytdHPP
+                    );
+
+
+                document.getElementById(
+                    "dashYTDOverhead"
+                ).textContent =
+                    formatRupiah(
+                        ytdOverhead
+                    );
+
+
+                const ytdProfitElement =
+                    document.getElementById(
+                        "dashYTDNetProfit"
+                    );
+
+
+                ytdProfitElement.textContent =
+                    formatRupiah(
+                        ytdNetProfit
+                    );
+
+
+                /* =====================================================
+                   WARNA NET PROFIT YTD
+                ====================================================== */
+
+                if (
+                    ytdNetProfit >= 0
+                ) {
+
+                    ytdProfitElement.style.color =
+                        "#c084fc";
+
+                } else {
+
+                    ytdProfitElement.style.color =
+                        "#f87171";
+
+                }
+
+
+                /* =====================================================
+                   UPDATE LABEL PERIODE YTD
+                ====================================================== */
+
+                const monthNames = [
+                    "Januari",
+                    "Februari",
+                    "Maret",
+                    "April",
+                    "Mei",
+                    "Juni",
+                    "Juli",
+                    "Agustus",
+                    "September",
+                    "Oktober",
+                    "November",
+                    "Desember"
+                ];
+
+
+                const ytdPeriod =
+                    document.getElementById(
+                        "ytdPeriod"
+                    );
+
+
+                if (ytdPeriod) {
+
+                    ytdPeriod.textContent =
+                        "Januari - " +
+                        monthNames[
+                        month - 1
+                        ] +
+                        " " +
+                        year;
+
+                }
+
+            }
+
+            /* ========================================================
+               BEST SELLING PRODUCT
+            ========================================================== */
+            async function loadVariantChart() {
+                const month =
+                    Number(
+                        document.getElementById(
+                            "dashMonth"
+                        ).value
+                    );
+
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+
+                const snapshot =
+                    await getDocs(
+                        collection(
+                            db,
+                            "sales_fg"
+                        )
+                    );
+
+                const productMap = {};
+                snapshot.forEach(
+                    doc => {
+                        const data =
+                            doc.data();
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+                        if (!date)
+                            return;
+                        if (
+
+                            date.getFullYear()
+                            !== year ||
+
+                            date.getMonth() + 1
+                            !== month
+
+                        ) {
+
+                            return;
+                        }
+
+                        const code =
+                            data.productCode ||
+                            "UNKNOWN";
+                        if (
+                            !productMap[code]
+                        ) {
+
+                            productMap[code] = {
+
+                                name:
+                                    data.productName ||
+                                    code,
+
+                                qty:
+                                    0
+
+                            };
+                        }
+                        productMap[code].qty +=
+
+                            Number(
+                                data.qtyPcs || 0
+                            );
+                    }
+                );
+
+                const ranking =
+                    Object.values(
+                        productMap
+                    )
+                        .sort(
+                            (a, b) =>
+                                b.qty - a.qty
+                        )
+
+                        .slice(
+                            0,
+                            10
+                        );
+
+                const labels =
+                    ranking.map(
+                        item => item.name
+                    );
+                const values =
+                    ranking.map(
+                        item => item.qty
+                    );
+                if (variantChart) {
+                    variantChart.destroy();
+
+                }
+                variantChart =
+                    new Chart(
+                        document.getElementById(
+                            "variantChart"
+                        ),
+
+                        {
+                            type:
+                                "doughnut",
+                            data: {
+                                labels,
+                                datasets: [
+
+                                    {
+
+                                        data:
+                                            values,
+
+
+                                        backgroundColor: [
+
+                                            "#16a34a",
+                                            "#22c55e",
+                                            "#84cc16",
+                                            "#facc15",
+                                            "#f59e0b",
+                                            "#fb923c",
+                                            "#ef4444",
+                                            "#ec4899",
+                                            "#8b5cf6",
+                                            "#3b82f6"
+
+                                        ],
+                                        borderWidth: 2,
+                                        borderColor: "#ffffff"
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                cutout: "62%",
+                                plugins: {
+                                    legend: {
+                                        position: "bottom",
+                                        labels: {
+                                            boxWidth: 10,
+                                            boxHeight: 10,
+                                            padding: 10,
+                                            font: {
+                                                size: 9
+                                            }
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label:
+                                                context =>
+                                                    " " +
+                                                    context.label +
+                                                    " : " +
+                                                    Number(
+                                                        context.raw
+                                                    ).toLocaleString(
+                                                        "id-ID"
+                                                    ) +
+                                                    " Pcs"
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    );
+            }
+            /* =========================================================
+               BEST STORE
+            ========================================================== */
+            async function loadStoreChart() {
+                const month =
+                    Number(
+                        document.getElementById(
+                            "dashMonth"
+                        ).value
+                    );
+                const year =
+                    Number(
+                        document.getElementById(
+                            "dashYear"
+                        ).value
+                    );
+                const snapshot =
+                    await getDocs(
+                        collection(
+                            db,
+                            "sales"
+                        )
+                    );
+                const storeMap = {};
+                snapshot.forEach(
+                    doc => {
+                        const data =
+                            doc.data();
+                        const date =
+                            parseDate(
+                                data.date
+                            );
+                        if (!date)
+                            return;
+
+                        if (
+                            date.getFullYear()
+                            !== year ||
+                            date.getMonth() + 1
+                            !== month
+
+                        ) {
+                            return;
+                        }
+                        const store =
+                            data.storeName ||
+                            data.storeCode ||
+                            "Unknown";
+                        if (
+                            !storeMap[store]
+                        ) {
+                            storeMap[store] = {
+
+                                name:
+                                    store,
+
+                                total:
+                                    0
+                            };
+                        }
+                        storeMap[store].total +=
+                            Number(
+                                data.value || 0
+                            );
+                    }
+                );
+                const ranking =
+                    Object.values(
+                        storeMap
+                    )
+                        .sort(
+                            (a, b) =>
+                                b.total - a.total
+                        )
+
+                        .slice(
+                            0,
+                            10
+                        );
+
+                const labels =
+                    ranking.map(
+                        item => item.name
+                    );
+
+                const values =
+                    ranking.map(
+                        item => item.total
+                    );
+
+                if (storeChart) {
+                    storeChart.destroy();
+                }
+
+                storeChart =
+                    new Chart(
+                        document.getElementById(
+                            "storeChart"
+                        ),
+                        {
+                            type: "pie",
+                            data: {
+                                labels,
+                                datasets: [
+                                    {
+                                        data:
+                                            values,
+                                        backgroundColor: [
+                                            "#16a34a",
+                                            "#22c55e",
+                                            "#84cc16",
+                                            "#facc15",
+                                            "#f59e0b",
+                                            "#fb923c",
+                                            "#ef4444",
+                                            "#ec4899",
+                                            "#8b5cf6",
+                                            "#3b82f6"
+                                        ],
+                                        borderWidth: 2,
+                                        borderColor: "#ffffff"
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        position: "bottom",
+                                        labels: {
+                                            boxWidth: 10,
+                                            boxHeight: 10,
+                                            padding: 10,
+                                            font: {
+                                                size: 9
+
+                                            }
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label:
+                                                context =>
+                                                    " " +
+                                                    context.label +
+                                                    " : " +
+                                                    formatRupiah(
+                                                        context.raw
+                                                    )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    );
+            }
+
+            /* =========================================================
+               REFRESH
+            ========================================================== */
+            async function refreshDashboard() {
+                updatePeriodLabels();
+                showLoading(
+                    "Memperbarui laporan..."
+                );
+
+                try {
+
+                    await Promise.all([
+
+                        /* ==============================
+                           KPI BULANAN — TETAP
+                        ============================== */
+                        loadDashboardSales(),
+                        loadDashboardCostProduction(),
+
+                        /* ==============================
+                           CHART — TETAP
+                        ============================== */
+                        loadProductionChart(),
+                        loadVariantChart(),
+                        loadStoreChart(),
+
+                        /* ==============================
+                           KPI YTD — TAMBAHAN
+                        ============================== */
+                        loadDashboardYTD()
+
+                    ]);
+
+                    /* ==============================
+                       NET PROFIT BULANAN — TETAP
+                    ============================== */
+                    loadDashboardNetProfit();
+                } catch (error) {
+                    console.error(
+                        "Dashboard Error:",
+                        error
+                    );
+                    alert(
+                        "Gagal mengambil data laporan. Silakan periksa koneksi dan konfigurasi Firebase."
+                    );
+                } finally {
+                    hideLoading();
+                }
+            }
+
+            /* =========================================================
+               LOGIN
+            ========================================================== */
+            loginForm.addEventListener(
+                "submit",
+                async event => {
+                    event.preventDefault();
+                    const email =
+                        document.getElementById(
+                            "email"
+                        ).value.trim();
+                    const password =
+                        document.getElementById(
+                            "password"
+                        ).value;
+                    loginError.style.display =
+                        "none";
+                    loginButton.disabled =
+                        true;
+                    loginButton.textContent =
+                        "Signing in...";
+                    showLoading(
+                        "Memverifikasi akun..."
+                    );
+
+                    try {
+                        await signInWithEmailAndPassword(
+                            auth,
+                            email,
+                            password
+                        );
+
+                    } catch (error) {
+                        console.error(
+                            error
+                        );
+
+                        let message =
+                            "Email atau password tidak benar.";
+                        if (
+                            error.code ===
+                            "auth/too-many-requests"
+                        ) {
+                            message =
+                                "Terlalu banyak percobaan login. Silakan coba lagi nanti.";
+                        }
+                        if (
+                            error.code ===
+                            "auth/network-request-failed"
+                        ) {
+                            message =
+                                "Tidak dapat terhubung ke server. Periksa koneksi internet.";
+
+                        }
+
+                        loginError.textContent = message;
+                        loginError.style.display = "block";
+                        hideLoading();
+
+                    } finally {
+                        loginButton.disabled = false;
+                        loginButton.textContent = "Sign In";
+
+                    }
+                }
+            );
+
+            /* =========================================================
+               USER MENU
+            ========================================================== */
+            document.getElementById(
+                "userButton"
+            ).addEventListener(
+                "click",
+                event => {
+
+                    event.stopPropagation();
+                    document.getElementById(
+                        "userMenu"
+                    ).classList.toggle(
+                        "show"
+                    );
+                }
+            );
+
+            document.addEventListener(
+                "click",
+                () => {
+
+                    document.getElementById(
+                        "userMenu"
+                    ).classList.remove(
+                        "show"
+                    );
+
+                }
+            );
+
+            /* =========================================================
+               LOGOUT
+            ========================================================== */
+            document.getElementById(
+                "logoutButton"
+            ).addEventListener(
+                "click",
+                async () => {
+
+                    document.getElementById(
+                        "userMenu"
+                    ).classList.remove(
+                        "show"
+                    );
+
+                    showLoading(
+                        "Mengakhiri session..."
+                    );
+
+                    try {
+                        await signOut(
+                            auth
+                        );
+
+                    } catch (error) {
+                        console.error(
+                            error
+                        );
+                        hideLoading();
+                    }
+                }
+            );
+
+            /* =========================================================
+               AUTH STATE
+            ========================================================== */
+            onAuthStateChanged(
+                auth,
+                async user => {
+                    if (user) {
+                        /* =============================================
+                           USER LOGIN
+                        ============================================== */
+                        loginPage.style.display =
+                            "none";
+                        appPage.style.display =
+                            "block";
+                        const email =
+                            user.email ||
+                            "User";
+                        const firstLetter =
+                            email
+                                .charAt(0)
+                                .toUpperCase();
+
+
+                        document.getElementById(
+                            "userAvatar"
+                        ).textContent =
+                            firstLetter;
+
+
+                        document.getElementById(
+                            "userName"
+                        ).textContent =
+                            "Administrator";
+
+
+                        document.getElementById(
+                            "userEmail"
+                        ).textContent =
+                            email;
+
+
+                        document.getElementById(
+                            "menuEmail"
+                        ).textContent =
+                            email;
+
+                        initDashboard();
+                        await refreshDashboard();
+
+                    } else {
+
+                        /* =============================================
+                           USER LOGOUT
+                        ============================================== */
+                        appPage.style.display =
+                            "none";
+                        loginPage.style.display =
+                            "flex";
+                        hideLoading();
+                    }
+                }
+            );
+        </script>
+    </body>
+
+</html>
